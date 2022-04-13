@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<section class="section-conten padding-y" style="min-height:84vh"">
+
+    {% include 'includes/alerts.html' %}
+
+    <div class="container mx-auto">
+        <div class="row">
+            {% include 'includes/dashboard_sidebar.html' %}
+            <main class="col-md-9">
+                <article class="card">
+                    <header class="card-header">
+                        <h3 class="d-inline-block m-3">My Profile</h3>
+                    </header>
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <div class="mb-4">
+                            <img src="{{userprofile.profile_picture.url}}" alt="" width="100" style="border-radius: 50px;">
+                        </div>
+                        <div class="row"> 
+                            <div class="col-md-12">
+                                <form action="{% url 'edit_profile' %}" method="POST" enctype="multipart/form-data">  <!-- enctype na dile file upload hobena -->
+                                    {% csrf_token %}
+                                
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="">First Name </label>
+                                            <br>
+                                            {{user_form.first_name}}
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="">Last Name </label>
+                                            <br>
+                                            {{user_form.last_name}}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row" disabled>
+                                        <div class="form-group col-md-6">
+                                            <label for="">Email </label>
+                                            <br>
+                                            {{user_form.email}}
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="">Phone </label>
+                                            <br>
+                                            {{user_form.phone_no}}
+                                        </div>
+                                    </div>
+                                    <!-- <div class="form-row">
+                                        <div class="form-group col-md-8">
+                                            <label for="">Profile Picture </label>
+                                            {{profile_form.profile_picture}}
+                                        </div>
+                                    </div> -->
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="">City </label>
+                                            <br>
+                                            {{profile_form.city}}
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="">Postcode </label>
+                                            <br>
+                                            {{profile_form.postcode}}
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="">Upazilla </label>
+                                            <br>
+                                            {{profile_form.upazilla}}
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="">Zilla </label>
+                                            <br>
+                                            {{profile_form.zilla}}
+                                        </div>
+                                    </div>
+                                    
+                                    <button type="submit" class="btn btn-grey">Save</button>
+                                </form>
+                            </div>
+                        </div> <!-- row.// -->
+                    </div> <!-- card-body .// -->
+                </article> <!-- order-group.// --> 
+            </main>
+        </div> <!-- row.// -->
+    </div>
+    
+    
+    </section>
+
+
+{% endblock %}

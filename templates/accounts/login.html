@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+<section class="section-content padding-y" style="min-height:84vh">
+
+
+  {% if request.GET.command == 'verification' %}
+    <div class="container mx-auto alert alert-info" role="alert" style="max-width: 380px; margin-top:100px;">
+      <p class="text-center">Complete your registration by clicking the verification email sent to you.
+        <br> <br>
+        Already verified? <a href="{% url 'login' %}">Login</a>
+      </p>
+  </div>
+
+  {% else %}
+
+  <div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
+    <div class="card-body">
+      {% include 'includes/alerts.html' %}
+      <div class="text-center">
+        <a href="{% url 'login' %}"> <strong>Sign in </strong></a>
+        <span class="text-muted">| </span>
+        <a href="{% url 'register' %}"><strong>Sign up</strong></a>
+      </div>
+      
+      <br>
+      <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <input type="email" class="form-control" placeholder="Email" name="email">
+        </div> <!-- form-group// -->
+        
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" name="password">
+        </div> <!-- form-group// -->
+        
+        <div class="form-group">
+          <a href="{% url 'forgotPassword' %}" class="float-right">Forgot password?</a>
+        </div> <!-- form-group form-check .// -->
+        
+        <div class="form-group">
+          <button type="submit" class="btn btn-grey btn-block btn-lg"> Login  </button>
+        </div> <!-- form-group// -->
+      </form>
+    </div> <!-- card-body.// -->
+  </div> <!-- card .// -->
+  <p class="text-center mt-4">Don't have an account? <a href="{% url 'register' %}">Sign up</a></p>
+  <br><br>
+
+  {% endif %}
+</section>
+
+
+{% endblock %}

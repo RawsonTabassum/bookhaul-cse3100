@@ -1,0 +1,72 @@
+{% load static %}
+
+
+<header class="section-header">
+    <section class="header-main border-bottom" style="background-color: #1A374D">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-2 col-md-3 col-6">
+                    <a href="{% url 'home' %}" class="brand-wrap">
+                        <img class="logo" src="{% static './images/bk0.png' %}">
+                    </a> <!-- brand-wrap.// -->
+                </div>
+                <div class="col-lg col-sm col-md col-6 flex-grow-0">
+                    <div class="category-wrap dropdown d-inline-block float-right">
+                        <button type="button" class="btn btn-grey dropdown-toggle" data-toggle="dropdown"> 
+                            Book Genres
+                        </button>
+                        <div class="dropdown-menu">
+                            {% for category in links %}
+                            <a class="dropdown-item" href="{{category.get_url}}">{{category.category_name}}</a>
+                            {% endfor %}
+                        </div>
+                    </div>  <!-- category-wrap.// -->
+                </div> <!-- col.// -->
+
+                <!-- <a href="{% url 'store' %}" class="btn btn-grey">All books</a> -->
+                <div class="col-lg  col-md-6 col-sm-12 col">
+                    <form action="{% url 'search' %}" class="search" method="GET">
+                        <div class="input-group w-100">
+                            <input type="text" class="form-control" style="width:60%;" placeholder="Search" name="keyword">
+                    
+                            <div class="input-group-append">
+                                <button class="btn btn-grey" type="submit">
+                                <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form> <!-- search-wrap .end// -->
+                </div> <!-- col.// -->
+                
+                <div class="justify-content-end mb-3 mb-lg-0">
+                    <span class="dark-transp">&nbsp;</span>
+                    {% if user.id is None %}
+                        <div class="widget-header">
+                            <small class="title text-muted"></small>
+                            <div>
+                                <a type="button" class="btn btn-grey"
+                                    href="{% url 'login' %}"><span class="text-white">Sign in </span>
+                                </a>
+                                    
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="widget-header">
+                            <div>
+                                <a href="{% url 'dashboard' %}"><span class="text-white">Profile</span> </a>
+                                <span class="text-white">&nbsp;|&nbsp;</span>
+                                <a href="{% url 'logout' %}"><span class="text-white">Logout</span> </a>            
+                            </div>
+                        </div>
+
+                    {% endif %}
+                    <a href="{% url 'cart' %}" class="widget-header pl-2 ml-1 text-white">
+                        <div class="icon icon-sm"><i class="fa fa-shopping-cart"></i>
+                        </div>
+                        <span class="badge badge-pill badge-danger notify">{{cart_count}}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</header>

@@ -1,0 +1,113 @@
+{%extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<section class="section-content padding-y" style="min-height:84vh">
+    <div class="container">
+        <div class="card">
+            <div class="row no-gutters">
+                <aside class="col-md-6">
+                    <article class="gallery-wrap"> 
+                        <div class="img-big-wrap">
+                            <a href="#"><img src="{{single_product.cover.url}}"></a>
+                        </div> <!-- img-big-wrap.// -->
+                    </article> <!-- gallery-wrap .end// -->
+                </aside>
+                <main class="col-md-6 border-left">
+                    <form action = "{% url 'add_cart' single_product.id %}" method="POST">
+                        {% csrf_token %}
+                        <article class="content-body">
+                            <br>
+                            <h2 class="title">{{single_product.book_name}}<small> - {{single_product.writer}}</small></h2>
+                            <h5 class="title text-muted">Genre : {{single_product.genre}}</h5>
+                            <br>
+
+                            <div class="mb-3"> 
+                                <var class="price h4">TK. {{single_product.price}}</var> 
+                            </div> 
+                            {% if single_product.stock > 0 %}
+                            <p> <strong>Copies available : {{single_product.stock}} </strong></p>
+                            {% else %}
+                            <p> <strong class="text-danger">Out of stock</strong></p>
+                            {% endif %}
+                            <br>
+                            <p>{{single_product.description}}</p>
+                            <br>
+                            {% if single_product.stock > 0 %}
+                                {% if in_cart %}
+                                <button class="btn  btn-outline-success btn-lg"> <i class="fas fa-check"></i> <span class="text">Added to cart</span></button>
+                                <a href="{% url 'cart' %}" class="btn  btn-outline-primary btn-lg float-right"> <i class="fas fa-shopping-cart"></i> <span class="text">Go to cart</span></a>
+                                {% else %}
+                                <button href="" type="submit" class="btn  btn-grey btn-lg float-right"> <i class="fas fa-shopping-cart"></i> <span class="text">Add to cart</span></button>
+                                {% endif %}
+                            {% endif %}
+                        </article> <!-- product-info-aside .// -->
+                    </form>
+                </main> <!-- col.// -->
+            </div> <!-- row.// -->
+        </div> <!-- card.// -->
+        <br>
+        
+        <div class="row">
+            <div class="col-md-9">
+                <header class="section-heading">
+                    <h4>Write Your Review </h4>  
+                </header>
+
+                <form action="{% url 'submit_review' single_product.id%}" method="POST">
+                    {% csrf_token %}
+                    <!-- <h5>Your review</h5> -->
+
+                    <div>
+
+                        <span>Review title</span>
+                        <br>
+                        <input type="text" class="form-control" name="subject">
+                        <br>
+                        <span>Review</span>
+                        <br>
+                        <textarea name="review" rows="4" class="form-control"></textarea>
+                        <br>
+                        {% if user.is_authenticated %}
+                            {% if order_product %}
+                            <button type="submit" class="btn btn-grey">Submit review</button>
+                            <br>
+                            {% else %}
+                            <p class="text-danger">You must purchase the book to post a review</p>
+                            {% endif %}
+                        {% else %}
+                        <p class="text-danger">You must be logged in to post a review</p>
+                        {% endif %}
+                        
+                    </div>
+{% include 'includes/alerts.html' %}
+                </form>
+
+                <br>
+                <header class="section-heading">
+                    <h4>Customer Reviews </h4>  
+                    
+                </header>
+                {% for review in reviews %}
+                <article class="box mb-3">
+                    <div class="icontext w-100">
+                        <img src="{% static './images/avatars/avatar1.jpg' %}" class="img-xs icon rounded-circle">
+                        <div class="text">
+                            <span class="date text-muted float-md-right">{{review.updated_at}}</span>  
+                            <h6 class="mb-1">{{review.user.full_name}} </h6>
+                        </div>
+                    </div> <!-- icontext.// -->
+                    <div class="mt-3">
+                        <h6>{{review.subject}}</h6>
+                        <p>
+                            {{review.review}}
+                        </p>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </div> <!-- row.// -->
+    </div> <!-- container .//  -->
+</section>
+
+{% endblock %}

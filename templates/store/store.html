@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+
+
+<section class="section-name padding-y-sm">
+    <section class="section-paegtop">
+        <div class="container">
+            
+            {% if 'search' in request.path %}
+                <h3 class="title-page">Search resuts</h3>
+            {% elif 'category' in request.path %}
+                <h3 class="title-page">{{cat}}</h3>
+            {% else %}
+                <h3 class="title-page">Store</h3>
+                <hr>
+            {% endif %}
+    
+        </div>
+    
+    </section>
+    <div class="container">
+        {% if 'search' in request.path %}
+        <header class="border-bottom mb-4 pb-3">
+            <div class="form-inline">
+                <span class="mr-md-auto"><b>{{book_count}}</b> items found</span>
+                
+            </div>
+        </header><!-- sect-heading -->
+        {% elif 'category' in request.path %}
+        <header class="border-bottom mb-4 pb-3">
+            <div class="form-inline">
+                <span class="mr-md-auto"><b>{{book_count}}</b> items found</span>
+                
+            </div>
+        </header>
+        {% endif %}
+        
+        <div class="row">
+            {% for book in books %}
+            <div class="col-md-3">
+                <div class="card card-product-grid">
+                    <a href="{{book.get_url}}" class="img-wrap"> <img src="{{book.cover.url}}"> </a>
+                    <figcaption class="info-wrap">
+                        <a href="{{book.get_url}}" class="title">{{book.book_name}}<p><small class="title text-muted">{{book.writer}}</small></p></a>
+                        <div class="price mt-1">&#2547;{{book.price}}</div> <!-- price-wrap.// -->
+                        <br>
+                        <a href="{{book.get_url}}" class="btn btn-block btn-grey">View details</a>
+                    </figcaption>
+                </div>
+            </div> <!-- col.// -->
+            {% endfor %}
+
+
+        </div> <!-- row.// -->
+        
+        <nav class="mt-4" aria-label="Page navigation sample">
+            {% if books.has_other_pages %}
+            <ul class="pagination justify-content-end">
+                {% if books.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{books.previous_page_number}}">Prev</a></li>
+                {% else %}
+                    <li class="page-item disabled"><a class="page-link" href="#">Prev</a></li>
+                {% endif %}
+
+
+                {% for n in books.paginator.page_range %}
+                    {% if books.number == n %}
+                        <li class="page-item active"><a class="page-link" href="#">{{n}}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{n}}">{{n}}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if books.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{books.next_page_number}}">Next</a></li>
+                {% else %}
+                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                {% endif %}
+
+            </ul>
+            {% endif %}
+        </nav>
+    </div>
+</section>
+
+
+{% endblock %}

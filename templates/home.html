@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+
+
+<section class="section-intro padding-y-sm">
+	<div class="container">
+		<div class="intro-banner-wrap">
+			<!-- <img src="{% static 'images/banners/b0.webp' %}" class="img-fluid rounded"> -->
+			<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+				<div class="carousel-inner">
+				  <div class="carousel-item active">
+					<img src="{% static 'images/banners/b0.png' %}" class="d-block w-100" alt="...">
+				  </div>
+				</div>
+			</div>
+		</div>
+	</div> <!-- container //  -->
+</section>
+
+<section class="section-name padding-y-sm">
+	<div class="container">
+		<header class="section-heading">
+			<a href="{% url 'store' %}" class="btn btn-grey float-right">See All Books</a>
+			<h3 class="section-title">Newly Added</h3>
+		</header><!-- sect-heading -->
+		
+		<div class="row">
+			{% for book in books %}
+			<div class="col-md-4">
+				<div class="card card-product-grid">
+					<a href="{{book.get_url}}" class="img-wrap"> <img src="{{book.cover.url}}"> </a>
+					<figcaption class="info-wrap">
+						<a href="{{book.get_url}}" class="title">{{book.book_name}}<p><small class="title text-muted">{{book.writer}}</small></p></a>
+						<div class="price mt-1">&#2547;{{book.price}}</div> <!-- price-wrap.// -->
+					</figcaption>
+				</div>
+			</div> <!-- col.// -->
+			{% endfor %}
+
+
+		</div> <!-- row.// -->
+		
+		<nav class="mt-4" aria-label="Page navigation sample">
+			{% if books.has_other_pages %}
+			<ul class="pagination justify-content-end">
+				{% if books.has_previous %}
+				<li class="page-item"><a class="page-link" href="?page={{books.previous_page_number}}">Prev</a></li>
+				{% else %}
+				<li class="page-item disabled"><a class="page-link" href="#">Prev</a></li>
+				{% endif %}
+				
+				
+				{% for n in books.paginator.page_range %}
+					{% if books.number == n %}
+						<li class="page-item active"><a class="page-link" href="#">{{n}}</a></li>
+					{% else %}
+						<li class="page-item"><a class="page-link" href="?page={{n}}">{{n}}</a></li>
+					{% endif %}
+				{% endfor %}
+				
+				{% if books.has_next %}
+					<li class="page-item"><a class="page-link" href="?page={{books.next_page_number}}">Next</a></li>
+				{% else %}
+					<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+				{% endif %}
+			</ul>
+			{% endif %}
+		</nav>
+	</div>
+</section>
+
+{% endblock %}

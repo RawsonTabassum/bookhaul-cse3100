@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+
+<section class="section-content padding-y" style="min-height:84vh">
+    <div class="container" style="margin-top: 50px;">
+        <center><i class="fas fa-check-circle" style="font-size: 72px;margin-bottom: 20px;color: #28A745;"></i></center>
+        <h2 class="text-center">Payment Successful</h2>
+        <br>
+        
+    </div>
+
+    <div class="container" style="margin: 0 auto;width: 50%;padding: 50px;background: #f1f1f1;margin-top: 50px;margin-bottom: 50px;">
+            <div class="panel panel-default plain" id="dash_0">
+                <div class="invoice-footer mt25 mb-3">
+                    <p class="text-center">Thank you for shopping with us!</p>
+                    
+                </div>
+            </div>
+        <div class="text-center">
+            <a href="{% url 'store' %}" class="btn btn-grey btn-lg mt25">Shop more</a>
+        </div>
+    </div>
+    <br>
+<br>
+</section>
+
+
+
+{% endblock %}

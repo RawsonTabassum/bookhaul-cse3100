@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+
+<section class="section-content padding-y" style="min-height:84vh">
+	<div class="container">
+		{% if not cart_items %}
+		<h1 class="title text-muted text-center">Your cart is empty!</h1>
+		<br>
+		<div class="text-center">
+			<a href="{% url 'store' %}" class="btn btn-grey btn-lg">Continue shopping</a>
+		</div>
+		{% else %}
+		
+		<a href="{% url 'store' %}" class="btn btn-grey">&#8592; Back to store</a>
+		<br>
+		<br>
+		
+		<div class="row">
+			<aside class="col-lg-9">
+				<div class="card">
+					<table class="table table-borderless table-shopping-cart">
+						<thead class="text-muted">
+							<tr class="small text-uppercase">
+								<th scope="col">Product</th>
+								<th scope="col" width="120">Quantity</th>
+								<th scope="col" width="120">Price</th>
+								<th scope="col" class="text-right" width="200"> </th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for cartitem in cart_items %}
+							<tr>
+								<td>
+									<figure class="itemside align-items-center">
+										<div class="aside"><img src="{{cartitem.product.cover.url}}" class="img-sm"></div>
+										<figcaption class="info">
+											<a href="{{ cartitem.product.get_url }}" class="title text-dark">{{cartitem.product.book_name}}</a>
+											<p class="text-muted small">{{cartitem.product.writer}}</p>
+										</figcaption>
+									</figure>
+								</td>
+								
+								<td>
+									<div class="col"> 
+										<div class="input-group input-spinner">
+											<div class="input-group-prepend">
+												<a href="{% url 'remove_cart' cartitem.product.id %}" class="btn btn-light" type="button" id="button-plus"> <i class="fa fa-minus"></i> </a>
+											</div>
+											<input type="text" class="form-control"  value="{{cartitem.quantity}}">
+											<div class="input-group-append">
+												<a href="{% url 'add_cart' cartitem.product.id %}" class="btn btn-light" type="button" id="button-minus"> <i class="fa fa-plus"></i> </a>
+												
+											</div>
+										</div>
+									</div>
+								</td>
+								
+								<td> 
+									<div class="price-wrap"> 
+										<var class="price">TK. {{cartitem.sub_total}}</var> 
+										<small class="text-muted"> TK. {{cartitem.product.price}} </small> 
+									</div>
+								</td>
+								
+								<td class="text-right"> 
+									<a href="{% url 'remove' cartitem.product.id %}" onclick="return confirm('Are you sure you want to remove this item?')" class="btn btn-danger"> Remove</a>
+								</td>
+							</tr>
+							
+							{% endfor %}
+						</tbody>
+					</table>
+				
+				</div>
+			</aside>
+			
+			<aside class="col-lg-3">
+				<div class="card">
+					<div class="card-body">
+						<dl class="dlist-align">
+							<dt>Total price:</dt>
+							<dd class="text-right">TK. {{total}}</dd>
+						</dl>
+						
+						<dl class="dlist-align">
+							<dt>Tax:</dt>
+							<dd class="text-right">TK. {{tax}}</dd>
+						</dl>
+						
+						<dl class="dlist-align">
+							<dt>Total:</dt>
+							<dd class="text-right text-dark b"><strong>TK. {{grand_total}}</strong></dd>
+						</dl>
+						<hr>
+
+						<a href="{% url 'checkout' %}" class="btn btn-grey btn-block btn-lg"> Checkout </a>
+						
+					</div>
+				</div>
+			</aside>
+		</div>
+		{% endif %}
+	</div>
+</section>
+
+{% endblock %}
