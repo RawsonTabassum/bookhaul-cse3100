@@ -6,11 +6,12 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 def home(request):
     books = Product.objects.all().filter(is_available=True)
-    paginator = Paginator(books, 12)
-    page = request.GET.get('page')
-    paged_book = paginator.get_page(page)
+    # paginator = Paginator(books, 12)
+    # page = request.GET.get('page')
+    # paged_book = paginator.get_page(page)
 
     context = {
-        'books': paged_book,
+        # 'books': paged_book,
+        'books': books,
     }
     return render(request, 'home.html', context)
