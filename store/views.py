@@ -75,6 +75,8 @@ def product_detail(request, category_slug, product_slug):
 
 def search(request):
     context = {}
+    books = []
+    book_count = 0
     if 'keyword' in request.GET:
         key = request.GET['keyword']
 
