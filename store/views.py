@@ -24,13 +24,13 @@ def store(request, category_slug=None):
         # genre thakle seta return korbe, na thakle 404 return korbe
         categories = get_object_or_404(Category, slug=category_slug)
         books = Product.objects.filter(genre=categories, is_available=True)
-        paginator = Paginator(books, 8)
+        paginator = Paginator(books, 12)
         page = request.GET.get('page')
         paged_book = paginator.get_page(page)
         book_count = books.count()
     else:
         books = Product.objects.all().filter(is_available=True)
-        paginator = Paginator(books, 8)
+        paginator = Paginator(books, 12)
         page = request.GET.get('page')
         paged_book = paginator.get_page(page)
         book_count = books.count()
