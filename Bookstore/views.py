@@ -9,6 +9,7 @@ def home(request):
     paginator = Paginator(books, 12)
     page = request.GET.get('page')
     paged_book = paginator.get_page(page)
+    paged_book.reverse()
 
     context = {
         'books': paged_book,
