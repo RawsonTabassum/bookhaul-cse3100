@@ -14,8 +14,8 @@ from django.contrib.messages import constants as messages
 from pathlib import Path
 
 import django_heroku
-# import dj_database_url
-# from decouple import config
+import dj_database_url
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -109,10 +109,10 @@ AUTH_USER_MODEL = 'accounts.Account'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd486uanl8cvcs0',
-        'USER': 'cvqubiqglcgups',
-        'PASSWORD': '12084f919f4516cc5cade336ba6b463ef12c248491fcdfc7d31559f6a2312107',
-        'HOST': 'ec2-52-73-155-171.compute-1.amazonaws.com',
+        'NAME': 'ddfoskhja6dt83',
+        'USER': 'rxbcxkfqesupyb',
+        'PASSWORD': 'a56828ca9232c9e9815f1b1dad576e719efa099a9ad2e002d07b97ec795a642f',
+        'HOST': 'ec2-52-203-118-49.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
