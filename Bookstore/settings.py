@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from django.contrib.messages import constants as messages
 from pathlib import Path
+
+import os
 import django_heroku
 import dj_database_url
 from decouple import config
@@ -27,9 +29,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@n%=^*w9il*138vt$yz#&!(hitj%#f@gn=__(c4$s6fbsi%-f!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'bookhaul.herokuapp.coms']
+ALLOWED_HOSTS = ['127.0.0.1', 'bookhaul.herokuapp.com']
 
 
 # Application definition
@@ -97,10 +99,22 @@ AUTH_USER_MODEL = 'accounts.Account'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'dvtg4rudve1ho',
+        'USER': 'lpofictdezdvgo',
+        'PASSWORD': '0784b9d78eec1ec4af8d338019d4b232e823a9d7dfa02db1e189df0090bd902c',
+        'HOST': 'ec2-52-73-155-171.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -160,6 +174,8 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 
+django_heroku.settings(locals())
+
 
 # SMTP configuration
 
@@ -178,5 +194,3 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
-
-django_heroku.settings(locals())
