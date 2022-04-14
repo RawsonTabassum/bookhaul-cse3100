@@ -11,6 +11,7 @@ def home(request):
     for book in books:
         new_books = [book] + new_books
 
+    print(new_books)
     paginator = Paginator(new_books, 18)
     page = request.GET.get('page')
     paged_book = paginator.get_page(page)
