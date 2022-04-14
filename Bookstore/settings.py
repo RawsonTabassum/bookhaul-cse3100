@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-@n%=^*w9il*138vt$yz#&!(hitj%#f@gn=__(c4$s6fbsi%-f!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'bookhaul.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'project-bookhaul.herokuapp.com']
 
 
 # Application definition
@@ -108,10 +108,10 @@ AUTH_USER_MODEL = 'accounts.Account'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'dvtg4rudve1ho',
-        'USER': 'lpofictdezdvgo',
-        'PASSWORD': '0784b9d78eec1ec4af8d338019d4b232e823a9d7dfa02db1e189df0090bd902c',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd486uanl8cvcs0',
+        'USER': 'cvqubiqglcgups',
+        'PASSWORD': '12084f919f4516cc5cade336ba6b463ef12c248491fcdfc7d31559f6a2312107',
         'HOST': 'ec2-52-73-155-171.compute-1.amazonaws.com',
         'PORT': '5432',
     }
